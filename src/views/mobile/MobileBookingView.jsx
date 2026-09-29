@@ -141,6 +141,7 @@ export const MobileBookingView = () => {
             <label className="block text-slate-700 font-semibold mb-1">Date *</label>
             <input
               type="date"
+              min={new Date().toISOString().split('T')[0]}
               value={form.date}
               onChange={e => setForm({ ...form, date: e.target.value })}
               className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-[#E53935] focus:bg-white"

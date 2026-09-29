@@ -85,8 +85,8 @@ export const DesktopHomeView = () => {
   return (
     <div className="space-y-12 pb-0">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[640px] overflow-hidden bg-slate-950 flex items-center">
+      {/* 1. HERO SECTION - Full Size & Full Width Bleed */}
+      <section className="relative -mx-4 sm:-mx-6 lg:-mx-10 -mt-6 min-h-[720px] lg:min-h-[86vh] xl:min-h-[90vh] overflow-hidden bg-slate-950 flex items-center shadow-2xl">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src="/images/hero-home-bg.jpg"
@@ -94,12 +94,13 @@ export const DesktopHomeView = () => {
             style={{ objectPosition: 'center 42%' }}
             className="w-full h-full object-cover opacity-100 scale-100 transform hover:scale-102 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-900/55 to-slate-950/70"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/30"></div>
+          {/* Subtle balanced gradient overlay for high image clarity and text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/25"></div>
         </div>
 
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
-          <div className="max-w-[820px] space-y-6">
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 lg:px-12 py-16 lg:py-24">
+          <div className="max-w-[760px] space-y-6">
             <div className="inline-flex items-center space-x-2 bg-red-600/90 backdrop-blur-md border border-red-400/50 px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-lg">
               <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" />
               <span>Bangalore's #1 Car & Superbike Service Center</span>
@@ -131,7 +132,7 @@ export const DesktopHomeView = () => {
                   setActiveView('services');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="px-6 py-3.5 bg-white/90 hover:bg-white text-slate-900 border border-white/60 font-bold text-sm rounded-2xl transition flex items-center space-x-2 shadow-lg backdrop-blur-md"
+                className="px-6 py-3.5 bg-white/95 hover:bg-white text-slate-900 border border-white/60 font-bold text-sm rounded-2xl transition flex items-center space-x-2 shadow-lg backdrop-blur-md"
               >
                 <Wrench className="w-4 h-4 text-amber-600" />
                 <span>Explore Packages</span>

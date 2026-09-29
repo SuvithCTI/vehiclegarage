@@ -29,28 +29,19 @@ import { AboutUsView } from './views/AboutUsView';
 import { PrivacyPolicyView } from './views/PrivacyPolicyView';
 import { TermsConditionsView } from './views/TermsConditionsView';
 
+import { useIsMobile } from './hooks/useIsMobile';
+
 const MainContent = () => {
-  const { activeView } = useGarage();
+  const { activeView, viewDeviceMode } = useGarage();
+  const isMobileScreen = useIsMobile(1024);
+
+  // Determine active display mode
+  const showMobile = viewDeviceMode === 'mobile-only' || (viewDeviceMode === 'responsive' && isMobileScreen);
 
   const renderCurrentView = () => {
-    return (
-      <>
-        {/* Desktop View container (Large Screens) */}
-        <div className="hidden lg:block animate-fadeIn">
-          {activeView === 'home' && <DesktopHomeView />}
-          {activeView === 'services' && <DesktopServicesView />}
-          {activeView === 'gallery' && <DesktopGalleryView />}
-          {activeView === 'contact' && <DesktopContactView />}
-          {activeView === 'booking' && <DesktopBookingView />}
-          {activeView === 'my-bookings' && <MyBookingsView />}
-          {activeView === 'about' && <AboutUsView />}
-          {activeView === 'privacy' && <PrivacyPolicyView />}
-          {activeView === 'terms' && <TermsConditionsView />}
-          {activeView === 'admin' && <DesktopAdminDashboard />}
-        </div>
-
-        {/* Mobile View container (Mobile/Tablet Screens) */}
-        <div className="block lg:hidden animate-fadeIn">
+    if (showMobile) {
+      return (
+        <div className="animate-fadeIn" key={`mobile-${activeView}`}>
           {activeView === 'home' && <MobileHomeView />}
           {activeView === 'services' && <MobileServicesView />}
           {activeView === 'gallery' && <MobileGalleryView />}
@@ -62,7 +53,22 @@ const MainContent = () => {
           {activeView === 'terms' && <TermsConditionsView />}
           {activeView === 'admin' && <MobileAdminDashboard />}
         </div>
-      </>
+      );
+    }
+
+    return (
+      <div className="animate-fadeIn" key={`desktop-${activeView}`}>
+        {activeView === 'home' && <DesktopHomeView />}
+        {activeView === 'services' && <DesktopServicesView />}
+        {activeView === 'gallery' && <DesktopGalleryView />}
+        {activeView === 'contact' && <DesktopContactView />}
+        {activeView === 'booking' && <DesktopBookingView />}
+        {activeView === 'my-bookings' && <MyBookingsView />}
+        {activeView === 'about' && <AboutUsView />}
+        {activeView === 'privacy' && <PrivacyPolicyView />}
+        {activeView === 'terms' && <TermsConditionsView />}
+        {activeView === 'admin' && <DesktopAdminDashboard />}
+      </div>
     );
   };
 

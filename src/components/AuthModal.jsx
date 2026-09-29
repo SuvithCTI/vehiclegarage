@@ -20,6 +20,8 @@ export const AuthModal = () => {
   const [loginRole, setLoginRole] = useState('customer'); // 'customer' | 'admin'
   const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [adminEmail, setAdminEmail] = useState('admin@apexauto.com');
+  const [adminPassword, setAdminPassword] = useState('admin123');
 
   useEffect(() => {
     if (authModal.initialTab === 'admin') {
@@ -35,25 +37,39 @@ export const AuthModal = () => {
     e.preventDefault();
 
     if (loginRole === 'admin') {
+      const cleanEmail = adminEmail.trim().toLowerCase();
+      const cleanPass = adminPassword.trim();
+
+      if (!cleanPass) {
+        showToast('Please enter admin passkey', 'error');
+        return;
+      }
+
+      if (cleanPass !== 'admin123' && cleanPass !== 'apex2026') {
+        showToast('Invalid Admin credentials or passkey', 'error');
+        return;
+      }
+
       const adminUser = {
         id: 'admin-1',
         name: 'ApexAuto Master Admin',
-        email: emailOrPhone || 'admin@apexauto.com',
+        email: cleanEmail || 'admin@apexauto.com',
         phone: garageInfo.phone,
         role: 'admin',
         avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=120&q=80'
       };
       loginUser(adminUser, authModal.redirectView || 'admin');
     } else {
-      if (!emailOrPhone) {
+      const cleanInput = emailOrPhone.trim();
+      if (!cleanInput) {
         showToast('Please enter your email or phone number', 'error');
         return;
       }
       const customerUser = {
-        id: 'cust-1',
-        name: emailOrPhone.includes('@') ? emailOrPhone.split('@')[0] : 'Aditya Roy',
-        email: emailOrPhone.includes('@') ? emailOrPhone : 'aditya.roy@example.com',
-        phone: emailOrPhone.includes('@') ? '+91 98451 23456' : emailOrPhone,
+        id: cleanInput === '+91 97123 45678' || cleanInput.includes('neha') ? 'cust-2' : 'cust-1',
+        name: cleanInput.includes('@') ? cleanInput.split('@')[0] : 'Aditya Roy',
+        email: cleanInput.includes('@') ? cleanInput : 'aditya.roy@example.com',
+        phone: cleanInput.includes('@') ? '+91 98451 23456' : cleanInput,
         role: 'customer',
         avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80'
       };
@@ -166,7 +182,9 @@ export const AuthModal = () => {
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="email"
-                      defaultValue="admin@apexauto.com"
+                      required
+                      value={adminEmail}
+                      onChange={(e) => setAdminEmail(e.target.value)}
                       className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-amber-500 focus:bg-white"
                     />
                   </div>
@@ -178,7 +196,9 @@ export const AuthModal = () => {
                     <KeyRound className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
                       type="password"
-                      defaultValue="admin123"
+                      required
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
                       className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-amber-500 focus:bg-white"
                     />
                   </div>

@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { servicesData as initialServices } from '../data/servicesData';
 import { garageInfo } from '../data/garageInfo';
+import { 
+  sanitizePlain, 
+  sanitizePhone, 
+  sanitizeEmail, 
+  sanitizeObject, 
+  safeJsonParse, 
+  isRateLimited 
+} from '../utils/security';
 
 const GarageContext = createContext();
 
@@ -136,50 +144,59 @@ const INITIAL_ENQUIRIES = [
 
 export const GarageProvider = ({ children }) => {
   // Navigation & View states
-  const [activeView, setActiveView] = useState('home'); // 'home', 'services', 'about', 'gallery', 'contact', 'booking', 'my-bookings', 'admin'
-  const [viewDeviceMode, setViewDeviceMode] = useState('responsive'); // 'responsive', 'desktop-only', 'mobile-only'
+  const [activeView, setActiveView] = useState('home');
+  const [viewDeviceMode, setViewDeviceMode] = useState('responsive');
 
   // User Authentication State
   const [currentUser, setCurrentUser] = useState(() => {
-    const saved = localStorage.getItem('apex_garage_user');
-    return saved ? JSON.parse(saved) : null; // null by default (logged out)
+    try {
+      const saved = localStorage.getItem('apex_garage_user');
+      return safeJsonParse(saved, null);
+    } catch (e) {
+      return null;
+    }
   });
 
   const [authModal, setAuthModal] = useState({
     isOpen: false,
-    initialTab: 'customer', // 'customer' | 'admin' | 'signup'
+    initialTab: 'customer',
     redirectView: null
   });
 
-  // Core Data
+  // Core Data with safe schema fallback
   const [services, setServices] = useState(() => {
-    // 3 Car and 3 Bike services with dedicated custom photos
-    const saved = localStorage.getItem('apex_garage_services_v4');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === initialServices.length) return parsed;
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    // Clean old keys if exist
     try {
-      localStorage.removeItem('apex_garage_services');
-      localStorage.removeItem('apex_garage_services_v2');
-      localStorage.removeItem('apex_garage_services_v3');
-    } catch (e) {}
+      const saved = localStorage.getItem('apex_garage_services_v4');
+      if (saved) {
+        const parsed = safeJsonParse(saved, null);
+        if (Array.isArray(parsed) && parsed.length === initialServices.length) return parsed;
+      }
+    } catch (e) {
+      console.warn('[GarageContext] Service load error fallback:', e);
+    }
     return initialServices;
   });
 
   const [bookings, setBookings] = useState(() => {
-    const saved = localStorage.getItem('apex_garage_bookings');
-    return saved ? JSON.parse(saved) : INITIAL_BOOKINGS;
+    try {
+      const saved = localStorage.getItem('apex_garage_bookings');
+      const parsed = safeJsonParse(saved, null);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch (e) {
+      console.warn('[GarageContext] Bookings load error fallback:', e);
+    }
+    return INITIAL_BOOKINGS;
   });
 
   const [enquiries, setEnquiries] = useState(() => {
-    const saved = localStorage.getItem('apex_garage_enquiries');
-    return saved ? JSON.parse(saved) : INITIAL_ENQUIRIES;
+    try {
+      const saved = localStorage.getItem('apex_garage_enquiries');
+      const parsed = safeJsonParse(saved, null);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch (e) {
+      console.warn('[GarageContext] Enquiries load error fallback:', e);
+    }
+    return INITIAL_ENQUIRIES;
   });
 
   // Selected for booking flow
@@ -195,7 +212,8 @@ export const GarageProvider = ({ children }) => {
   const [toast, setToast] = useState(null);
 
   const showToast = (message, type = 'success') => {
-    setToast({ message, type, id: Date.now() });
+    const cleanMsg = typeof message === 'string' ? sanitizePlain(message, 300) : 'Notification';
+    setToast({ message: cleanMsg, type, id: Date.now() });
     setTimeout(() => {
       setToast(null);
     }, 4000);
@@ -203,34 +221,51 @@ export const GarageProvider = ({ children }) => {
 
   // Sync to local storage
   useEffect(() => {
-    localStorage.setItem('apex_garage_services_v4', JSON.stringify(services));
+    try {
+      localStorage.setItem('apex_garage_services_v4', JSON.stringify(services));
+    } catch (e) {
+      console.error('Failed to sync services to storage', e);
+    }
   }, [services]);
 
   useEffect(() => {
-    localStorage.setItem('apex_garage_bookings', JSON.stringify(bookings));
+    try {
+      localStorage.setItem('apex_garage_bookings', JSON.stringify(bookings));
+    } catch (e) {
+      console.error('Failed to sync bookings to storage', e);
+    }
   }, [bookings]);
 
   useEffect(() => {
-    localStorage.setItem('apex_garage_enquiries', JSON.stringify(enquiries));
+    try {
+      localStorage.setItem('apex_garage_enquiries', JSON.stringify(enquiries));
+    } catch (e) {
+      console.error('Failed to sync enquiries to storage', e);
+    }
   }, [enquiries]);
 
   useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('apex_garage_user', JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem('apex_garage_user');
+    try {
+      if (currentUser) {
+        localStorage.setItem('apex_garage_user', JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem('apex_garage_user');
+      }
+    } catch (e) {
+      console.error('Failed to sync user to storage', e);
     }
   }, [currentUser]);
 
   // Auth Functions
   const loginUser = (userObj, targetView = null) => {
-    setCurrentUser(userObj);
+    const cleanUser = sanitizeObject(userObj);
+    setCurrentUser(cleanUser);
     setAuthModal({ isOpen: false, initialTab: 'customer', redirectView: null });
-    showToast(`Welcome back, ${userObj.name}!`, 'success');
+    showToast(`Welcome back, ${cleanUser.name || 'User'}!`, 'success');
     
     if (targetView) {
       setActiveView(targetView);
-    } else if (userObj.role === 'admin') {
+    } else if (cleanUser.role === 'admin') {
       setActiveView('admin');
     } else if (activeView === 'home' || !['services', 'about', 'gallery', 'contact'].includes(activeView)) {
       setActiveView('my-bookings');
@@ -275,12 +310,27 @@ export const GarageProvider = ({ children }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Booking Actions
+  // Booking Actions with rate limiting and input sanitization
   const addBooking = (newBookingData) => {
+    if (isRateLimited('addBooking', 2000)) {
+      showToast('Please wait a moment before submitting another booking request.', 'error');
+      return null;
+    }
+
+    const sanitizedData = sanitizeObject(newBookingData);
     const id = `BK-${Math.floor(10000 + Math.random() * 90000)}`;
+    
     const fullBooking = {
-      ...newBookingData,
+      ...sanitizedData,
       id,
+      customerName: sanitizePlain(sanitizedData.customerName || 'Valued Customer', 80),
+      phone: sanitizePhone(sanitizedData.phone || ''),
+      email: sanitizeEmail(sanitizedData.email || 'customer@apexauto.com') || 'customer@apexauto.com',
+      brand: sanitizePlain(sanitizedData.brand || 'Vehicle', 50),
+      model: sanitizePlain(sanitizedData.model || '', 60),
+      regNumber: sanitizePlain(sanitizedData.regNumber || 'Not Provided', 30),
+      pickupAddress: sanitizePlain(sanitizedData.pickupAddress || '', 250),
+      notes: sanitizePlain(sanitizedData.notes || '', 500),
       customerId: currentUser ? currentUser.id : `guest-${Date.now()}`,
       status: 'Confirmed',
       createdAt: new Date().toISOString(),
@@ -302,9 +352,9 @@ export const GarageProvider = ({ children }) => {
     if (!currentUser) {
       setCurrentUser({
         id: fullBooking.customerId,
-        name: newBookingData.customerName,
-        phone: newBookingData.phone,
-        email: newBookingData.email || 'customer@apexauto.com',
+        name: fullBooking.customerName,
+        phone: fullBooking.phone,
+        email: fullBooking.email,
         role: 'customer',
         avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80'
       });
@@ -314,11 +364,18 @@ export const GarageProvider = ({ children }) => {
   };
 
   const updateBookingStatus = (bookingId, newStatus) => {
+    // Role check: Only admin or authenticated staff can update workshop status
+    if (!currentUser || currentUser.role !== 'admin') {
+      showToast('Unauthorized: Admin credentials required to modify service status', 'error');
+      return;
+    }
+
+    const cleanStatus = sanitizePlain(newStatus, 50);
     setBookings(prev => prev.map(item => {
       if (item.id === bookingId) {
         const nowFormatted = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const updatedTimeline = item.timeline.map(step => {
-          if (step.status.toLowerCase().includes(newStatus.toLowerCase().replace('in service', 'service in progress'))) {
+          if (step.status.toLowerCase().includes(cleanStatus.toLowerCase().replace('in service', 'service in progress'))) {
             return { ...step, done: true, time: `Updated ${nowFormatted}` };
           }
           return step;
@@ -326,22 +383,34 @@ export const GarageProvider = ({ children }) => {
 
         return {
           ...item,
-          status: newStatus,
+          status: cleanStatus,
           timeline: updatedTimeline
         };
       }
       return item;
     }));
-    showToast(`Booking ${bookingId} status updated to ${newStatus}`, 'info');
+    showToast(`Booking ${bookingId} status updated to ${cleanStatus}`, 'info');
   };
 
   const cancelBooking = (bookingId) => {
+    // Ensure the booking exists and user is owner or admin
+    const targetBooking = bookings.find(b => b.id === bookingId);
+    if (!targetBooking) {
+      showToast('Booking record not found', 'error');
+      return;
+    }
+
+    if (currentUser && currentUser.role !== 'admin' && targetBooking.customerId !== currentUser.id && targetBooking.phone !== currentUser.phone) {
+      showToast('Unauthorized: You can only cancel your own bookings', 'error');
+      return;
+    }
+
     setBookings(prev => prev.map(item => {
       if (item.id === bookingId) {
         return {
           ...item,
           status: 'Cancelled',
-          timeline: [...item.timeline, { status: 'Cancelled', time: 'Cancelled by user/admin', done: true }]
+          timeline: [...item.timeline, { status: 'Cancelled', time: 'Cancelled by customer/admin', done: true }]
         };
       }
       return item;
@@ -350,35 +419,63 @@ export const GarageProvider = ({ children }) => {
   };
 
   const addEnquiry = (enquiryData) => {
-    const id = `ENQ-${Math.floor(100 + Math.random() * 900)}`;
-    const newEnquiry = {
-      ...enquiryData,
-      id,
+    if (isRateLimited('addEnquiry', 2500)) {
+      showToast('Please wait a moment before sending another enquiry.', 'error');
+      return null;
+    }
+
+    const cleanEnquiry = {
+      id: `ENQ-${Math.floor(100 + Math.random() * 900)}`,
+      name: sanitizePlain(enquiryData.name || 'Anonymous', 80),
+      phone: sanitizePhone(enquiryData.phone || ''),
+      email: sanitizeEmail(enquiryData.email || '') || 'customer@apexauto.com',
+      vehicleType: sanitizePlain(enquiryData.vehicleType || 'Car', 60),
+      subject: sanitizePlain(enquiryData.subject || 'Service Enquiry', 120),
+      message: sanitizePlain(enquiryData.message || '', 1000),
       date: new Date().toLocaleString(),
       status: 'New'
     };
-    setEnquiries(prev => [newEnquiry, ...prev]);
+
+    setEnquiries(prev => [cleanEnquiry, ...prev]);
     showToast('Enquiry sent! Our master technician will call you shortly.', 'success');
-    return newEnquiry;
+    return cleanEnquiry;
   };
 
   const updateEnquiryStatus = (id, newStatus) => {
-    setEnquiries(prev => prev.map(e => e.id === id ? { ...e, status: newStatus } : e));
-    showToast(`Enquiry ${id} marked as ${newStatus}`, 'info');
+    if (!currentUser || currentUser.role !== 'admin') {
+      showToast('Unauthorized: Admin access required', 'error');
+      return;
+    }
+    const cleanStatus = sanitizePlain(newStatus, 40);
+    setEnquiries(prev => prev.map(e => e.id === id ? { ...e, status: cleanStatus } : e));
+    showToast(`Enquiry ${id} marked as ${cleanStatus}`, 'info');
   };
 
   const addService = (newService) => {
+    if (!currentUser || currentUser.role !== 'admin') {
+      showToast('Unauthorized: Admin credentials required to add services', 'error');
+      return;
+    }
+
+    const cleanService = sanitizeObject(newService);
     const serviceWithId = {
-      ...newService,
+      ...cleanService,
       id: `custom-${Date.now()}`,
+      name: sanitizePlain(cleanService.name || 'New Service', 80),
+      price: Number(cleanService.price) || 999,
+      originalPrice: Number(cleanService.originalPrice) || 1499,
       rating: 5.0,
       reviewsCount: 1
     };
     setServices(prev => [serviceWithId, ...prev]);
-    showToast(`Service "${newService.name}" added successfully!`, 'success');
+    showToast(`Service "${serviceWithId.name}" added successfully!`, 'success');
   };
 
   const deleteService = (serviceId) => {
+    if (!currentUser || currentUser.role !== 'admin') {
+      showToast('Unauthorized: Admin credentials required to delete services', 'error');
+      return;
+    }
     setServices(prev => prev.filter(s => s.id !== serviceId));
     showToast('Service package removed from catalogue', 'info');
   };
@@ -444,3 +541,4 @@ export const useGarage = () => {
   }
   return context;
 };
+

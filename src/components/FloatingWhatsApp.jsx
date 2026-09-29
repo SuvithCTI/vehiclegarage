@@ -8,7 +8,7 @@ export const FloatingWhatsApp = () => {
 
   const handleOpenWhatsApp = () => {
     const msg = encodeURIComponent('Hi ApexAuto, I would like to inquire about vehicle service booking.');
-    window.open(`https://wa.me/${phoneClean}?text=${msg}`, '_blank');
+    window.open(`https://wa.me/${phoneClean}?text=${msg}`, '_blank', 'noopener,noreferrer');
   };
 
   return (

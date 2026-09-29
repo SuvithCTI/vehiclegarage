@@ -77,18 +77,41 @@ export const DesktopContactView = () => {
     <div className="space-y-16 pb-16">
       
       {/* Header Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-white border border-slate-200 p-8 sm:p-12 shadow-sm">
-        <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center space-x-2 bg-red-50 border border-red-200 px-3 py-1 rounded-full text-xs font-bold text-[#E53935]">
-            <MessageSquare className="w-3.5 h-3.5" />
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 border border-cyan-500/30 p-8 sm:p-12 shadow-2xl text-white">
+        {/* Ambient lighting glows */}
+        <div className="absolute -top-16 -right-16 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-10 w-80 h-80 bg-blue-600/25 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#38bdf815_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none opacity-80" />
+
+        <div className="max-w-3xl space-y-4 relative z-10">
+          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-600/25 border border-cyan-400/40 px-3.5 py-1.5 rounded-full text-xs font-bold text-cyan-300 backdrop-blur-md shadow-inner">
+            <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
             <span>Connect With Our Workshop Masters</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 font-['Outfit']">
-            Contact & Service Enquiry
+
+          <h1 className="text-3xl sm:text-5xl font-black text-white font-['Outfit'] tracking-tight">
+            Contact & <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">Service Enquiry</span>
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+
+          <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl font-normal">
             Have a custom engine issue, seeking an estimate for accidental repair, or looking for superbike upgrades? Reach our master technicians directly.
           </p>
+
+          {/* Quick trust badges */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-2 text-xs font-semibold">
+            <div className="inline-flex items-center space-x-1.5 bg-slate-900/90 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-cyan-100 shadow-sm backdrop-blur-sm">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span>Instant Response</span>
+            </div>
+            <div className="inline-flex items-center space-x-1.5 bg-slate-900/90 border border-blue-500/40 px-3 py-1.5 rounded-xl text-blue-100 shadow-sm backdrop-blur-sm">
+              <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+              <span>Direct Master Mechanic Chat</span>
+            </div>
+            <div className="inline-flex items-center space-x-1.5 bg-slate-900/90 border border-amber-500/40 px-3 py-1.5 rounded-xl text-amber-100 shadow-sm backdrop-blur-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span>Free Estimate Consultation</span>
+            </div>
+          </div>
         </div>
       </div>
 

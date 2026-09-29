@@ -30,9 +30,18 @@ export const MobileContactView = () => {
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-black text-slate-900 font-['Outfit']">Contact & Consultation</h1>
-        <p className="text-xs text-slate-600">Get a fast quotation or technical support</p>
+      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 border border-cyan-500/30 p-5 shadow-xl text-white">
+        <div className="absolute -top-10 -right-10 w-40 h-40 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="relative z-10 space-y-1.5">
+          <div className="inline-flex items-center space-x-1.5 bg-cyan-500/20 border border-cyan-400/30 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-cyan-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Workshop Masters</span>
+          </div>
+          <h1 className="text-xl font-black text-white font-['Outfit'] tracking-tight">
+            Contact & <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">Service Enquiry</span>
+          </h1>
+          <p className="text-[11px] text-slate-200">Get a fast quotation, emergency towing or technical support directly from our technicians.</p>
+        </div>
       </div>
 
       {/* 2-Column Info & Action Boxes */}
