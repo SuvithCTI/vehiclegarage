@@ -85,7 +85,7 @@ export const OfferBanner = ({ offer }) => {
   const IconComponent = theme.icon;
 
   return (
-    <div className={`relative overflow-hidden rounded-2xl sm:rounded-3xl ${theme.cardBg} border border-slate-200/90 p-2.5 sm:p-5 md:p-6 flex flex-col justify-between ${theme.borderHover} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 shadow-sm group h-full`}>
+    <div className={`relative overflow-hidden rounded-2xl sm:rounded-3xl ${theme.cardBg} border border-slate-200/90 p-3 sm:p-5 md:p-6 flex flex-col justify-between ${theme.borderHover} hover:shadow-xl transition-all duration-300 hover:-translate-y-1 shadow-sm group h-full`}>
       
       {/* Top Colorful Accent Strip */}
       <div className={`absolute top-0 inset-x-0 h-1 sm:h-1.5 ${theme.topStrip}`}></div>
@@ -95,12 +95,12 @@ export const OfferBanner = ({ offer }) => {
 
       <div>
         {/* Header Row: Badge & Validity */}
-        <div className="flex items-center justify-between mb-1 sm:mb-3.5 pt-0.5 sm:pt-1 gap-1">
-          <span className={`text-[8px] sm:text-[10px] uppercase font-black tracking-wider px-1.5 py-0.5 sm:px-3 sm:py-1 rounded-full ${theme.badge} shadow-sm flex items-center space-x-0.5 sm:space-x-1 truncate`}>
-            <IconComponent className="w-2.5 h-2.5 sm:w-3 sm:h-3 inline-block mr-0.5 sm:mr-1 shrink-0" />
+        <div className="flex items-center justify-between mb-1.5 sm:mb-3 pt-0.5 sm:pt-1 gap-1">
+          <span className={`text-[8px] sm:text-[10px] md:text-xs uppercase font-black tracking-wider px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full ${theme.badge} shadow-sm flex items-center space-x-1 shrink-0 truncate max-w-[65%]`}>
+            <IconComponent className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
             <span className="truncate">{offer.badge}</span>
           </span>
-          <span className="text-[8px] sm:text-xs text-slate-500 font-semibold bg-white/80 px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full border border-slate-200/60 shadow-2xs shrink-0">
+          <span className="text-[8px] sm:text-[10px] text-slate-500 font-semibold bg-white/90 px-1.5 py-0.5 rounded-full border border-slate-200/80 shadow-2xs shrink-0">
             {offer.validTill}
           </span>
         </div>
@@ -111,52 +111,58 @@ export const OfferBanner = ({ offer }) => {
         </h3>
         
         {/* Offer Subheading & Details */}
-        <h4 className="text-[11px] sm:text-sm font-bold text-slate-800 mt-0.5 sm:mt-1 line-clamp-1 font-['Outfit'] leading-snug">
+        <h4 className="text-[11px] sm:text-sm font-bold text-slate-900 mt-0.5 sm:mt-1 font-['Outfit'] leading-snug line-clamp-1">
           {offer.title}
         </h4>
         
-        <p className="text-[9px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1 leading-tight sm:leading-relaxed line-clamp-1 sm:line-clamp-2">
+        <p className="text-[9px] sm:text-xs text-slate-600 mt-0.5 sm:mt-1 leading-tight sm:leading-relaxed line-clamp-2">
           {offer.description}
         </p>
       </div>
 
-      {/* Footer: Coupon Code & Claim CTA side by side */}
-      <div className="mt-2 sm:mt-5 pt-1.5 sm:pt-3.5 border-t border-slate-200/70 flex items-center justify-between gap-1">
+      {/* Footer: Coupon Code & Claim CTA */}
+      <div className="mt-2.5 sm:mt-4 pt-2 sm:pt-3 border-t border-slate-200/70 flex flex-col gap-1.5 sm:gap-2">
         {/* Coupon Code Pill */}
-        <div 
+        <button 
+          type="button"
           onClick={() => handleCopy(offer.code)}
-          className={`flex items-center space-x-1 px-1.5 py-0.5 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border border-dashed ${theme.couponBorder} cursor-pointer transition shadow-2xs group/btn shrink-0`}
+          className={`w-full flex items-center justify-between px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl border border-dashed ${theme.couponBorder} cursor-pointer transition shadow-2xs group/btn active:scale-95`}
           title="Click to copy coupon code"
         >
-          <Tag className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 ${theme.couponTag}`} />
-          <span className="font-mono text-[9px] sm:text-xs font-black tracking-wide">{offer.code}</span>
+          <div className="flex items-center space-x-1">
+            <Tag className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 ${theme.couponTag}`} />
+            <span className="font-mono text-[9px] sm:text-xs font-black tracking-wide">{offer.code}</span>
+          </div>
           {copied ? (
-            <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-emerald-600 stroke-[3]" />
+            <span className="text-[8px] sm:text-[10px] font-bold text-emerald-600 flex items-center space-x-0.5">
+              <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[3]" />
+              <span>Copied</span>
+            </span>
           ) : (
             <Copy className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-slate-400 group-hover/btn:text-slate-700 transition" />
           )}
-        </div>
+        </button>
 
-        {/* Claim Actions */}
-        <div className="flex items-center space-x-1">
-          <button
-            onClick={() => {
-              const msg = encodeURIComponent(`Hi ApexAuto, I want to claim the offer "${offer.title}" (${offer.discount}) using promo code ${offer.code} for my upcoming service booking.`);
-              window.open(`https://wa.me/${garageInfo.whatsapp.replace(/[^0-9]/g, '')}?text=${msg}`, '_blank');
-            }}
+        {/* Claim Actions (2 buttons side by side) */}
+        <div className="flex items-center gap-1 sm:gap-1.5">
+          <a
+            href={`https://wa.me/${garageInfo.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ApexAuto, I want to claim the offer "${offer.title}" (${offer.discount}) using promo code ${offer.code} for my upcoming service booking.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             title="Claim on WhatsApp"
-            className="p-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-200 rounded-lg transition active:scale-95"
+            className="flex-1 py-1 sm:py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg sm:rounded-xl text-[9px] sm:text-xs font-bold flex items-center justify-center space-x-1 shadow-sm transition active:scale-95"
             aria-label="Claim offer via WhatsApp"
           >
-            <MessageCircle className="w-3 h-3 fill-emerald-600 text-white" />
-          </button>
+            <MessageCircle className="w-3 h-3 fill-white shrink-0" />
+            <span>WhatsApp</span>
+          </a>
 
           <button
             onClick={() => initiateBooking()}
-            className={`text-[9px] sm:text-xs font-black ${theme.claimText} flex items-center space-x-0.5 sm:space-x-1 transition group-hover:translate-x-0.5 shrink-0`}
+            className="flex-1 py-1 sm:py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg sm:rounded-xl text-[9px] sm:text-xs font-bold flex items-center justify-center space-x-1 transition active:scale-95 shadow-sm"
           >
             <span>Claim</span>
-            <ArrowRight className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" />
+            <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
           </button>
         </div>
       </div>

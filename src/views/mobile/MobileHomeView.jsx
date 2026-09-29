@@ -280,9 +280,17 @@ export const MobileHomeView = () => {
         </div>
       </div>
 
-      {/* Offers - 2 Column Grid on Mobile */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold text-slate-900 font-['Outfit']">Special Offers</h3>
+      {/* Offers - Clean Stacked Layout on Mobile */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 font-['Outfit']">Special Offers</h3>
+            <p className="text-[11px] text-slate-500">Limited time discounts & promo codes</p>
+          </div>
+          <span className="text-[10px] font-bold text-[#E53935] bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-full">
+            4 Active
+          </span>
+        </div>
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5">
           {offersData.slice(0, 4).map((offer) => (
             <OfferBanner key={offer.id} offer={offer} />

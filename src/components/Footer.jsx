@@ -98,8 +98,8 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Col 3: Services Offered */}
-          <div>
+          {/* Col 3: Services Offered (Hidden on Mobile View) */}
+          <div className="hidden md:block">
             <h4 className="text-white font-bold text-xs uppercase tracking-wider mb-2.5 flex items-center space-x-1.5">
               <span className="w-1 h-3.5 bg-gradient-to-b from-red-500 to-red-700 rounded-full"></span>
               <span>Specializations</span>
