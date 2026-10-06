@@ -25,9 +25,8 @@ export const BookingReceiptModal = () => {
     window.print();
   };
 
-  const handleTrackBooking = () => {
+  const handleClose = () => {
     setActiveBookingReceipt(null);
-    setActiveView('my-bookings');
   };
 
   return (
@@ -169,10 +168,10 @@ Please send live inspection and workshop updates to my WhatsApp!`);
 
           <div className="flex items-center space-x-2">
             <button
-              onClick={handleTrackBooking}
-              className="px-5 py-2 bg-[#E53935] hover:bg-[#d32f2f] text-white font-bold text-xs rounded-xl shadow-md shadow-[#E53935]/20 transition active:scale-95"
+              onClick={handleClose}
+              className="px-6 py-2 bg-[#E53935] hover:bg-[#d32f2f] text-white font-bold text-xs rounded-xl shadow-md shadow-[#E53935]/20 transition active:scale-95"
             >
-              View in My Bookings
+              Done
             </button>
           </div>
         </div>

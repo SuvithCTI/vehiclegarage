@@ -13,7 +13,12 @@ import {
   ShieldCheck,
   Zap,
   Tag,
-  ChevronRight
+  ChevronRight,
+  Award,
+  Truck,
+  Cpu,
+  Video,
+  BadgeCheck
 } from 'lucide-react';
 import { ServiceCard } from '../../components/ServiceCard';
 import { QuickCostEstimator } from '../../components/QuickCostEstimator';
@@ -204,49 +209,101 @@ export const MobileHomeView = () => {
 
         <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
           {/* 1. Genuine OEM Parts */}
-          <div className="p-3 bg-white rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm hover:border-red-300 transition space-y-2">
-            <div className="flex items-start justify-between">
-              <AnimatedOemLogo />
-              <span className="text-[8px] font-bold text-red-700 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded">100% OEM</span>
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group hover:border-red-400 transition-all duration-300">
+            <div className="relative h-24 sm:h-28 w-full overflow-hidden">
+              <img
+                src="/images/gallery-brake-caliper.jpg"
+                alt="Genuine OEM Parts"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+              <span className="absolute top-1.5 right-1.5 text-[8px] font-bold text-white bg-red-600/90 backdrop-blur-sm px-1.5 py-0.5 rounded shadow">
+                100% OEM
+              </span>
+              <div className="absolute bottom-1.5 left-1.5 flex items-center space-x-1">
+                <div className="w-5 h-5 rounded-md bg-slate-900/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-amber-400">
+                  <Award className="w-3 h-3" />
+                </div>
+                <span className="text-[9px] font-bold text-white drop-shadow">Genuine</span>
+              </div>
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-bold text-slate-900">Genuine OEM Parts</h4>
+            <div className="p-2.5 space-y-0.5">
+              <h4 className="text-xs font-bold text-slate-900 group-hover:text-red-600 transition-colors">Genuine OEM Parts</h4>
               <p className="text-[10px] text-slate-500 leading-tight">Barcode verified & sealed manufacturer parts.</p>
             </div>
           </div>
 
           {/* 2. Free Pick & Drop */}
-          <div className="p-3 bg-white rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm hover:border-amber-300 transition space-y-2">
-            <div className="flex items-start justify-between">
-              <AnimatedGpsLogo />
-              <span className="text-[8px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded">GPS Live</span>
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group hover:border-amber-400 transition-all duration-300">
+            <div className="relative h-24 sm:h-28 w-full overflow-hidden">
+              <img
+                src="/images/gallery-supercar-studio.jpg"
+                alt="Free Pick & Drop"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+              <span className="absolute top-1.5 right-1.5 text-[8px] font-bold text-slate-950 bg-amber-400 backdrop-blur-sm px-1.5 py-0.5 rounded shadow">
+                GPS Live
+              </span>
+              <div className="absolute bottom-1.5 left-1.5 flex items-center space-x-1">
+                <div className="w-5 h-5 rounded-md bg-slate-900/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-amber-400">
+                  <Truck className="w-3 h-3" />
+                </div>
+                <span className="text-[9px] font-bold text-white drop-shadow">Doorstep</span>
+              </div>
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-bold text-slate-900">Free Pick & Drop</h4>
+            <div className="p-2.5 space-y-0.5">
+              <h4 className="text-xs font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Free Pick & Drop</h4>
               <p className="text-[10px] text-slate-500 leading-tight">Real-time driver tracking across Bangalore.</p>
             </div>
           </div>
 
-          {/* 3. Hi-Tech Diagnostics */}
-          <div className="p-3 bg-white rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm hover:border-blue-300 transition space-y-2">
-            <div className="flex items-start justify-between">
-              <AnimatedDiagnosticsLogo />
-              <span className="text-[8px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">OBD-II</span>
+          {/* 3. Master Certified Technicians */}
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group hover:border-blue-400 transition-all duration-300">
+            <div className="relative h-24 sm:h-28 w-full overflow-hidden">
+              <img
+                src="/images/service-car-master.jpg"
+                alt="Master Certified Technicians"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+              <span className="absolute top-1.5 right-1.5 text-[8px] font-bold text-white bg-blue-600/90 backdrop-blur-sm px-1.5 py-0.5 rounded shadow">
+                ASE Certified
+              </span>
+              <div className="absolute bottom-1.5 left-1.5 flex items-center space-x-1">
+                <div className="w-5 h-5 rounded-md bg-slate-900/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-cyan-400">
+                  <ShieldCheck className="w-3 h-3" />
+                </div>
+                <span className="text-[9px] font-bold text-white drop-shadow">Master Tech</span>
+              </div>
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-bold text-slate-900">Hi-Tech Diagnostics</h4>
-              <p className="text-[10px] text-slate-500 leading-tight">Bosch computerized engine sensor & ECU scan.</p>
+            <div className="p-2.5 space-y-0.5">
+              <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Master Certified Techs</h4>
+              <p className="text-[10px] text-slate-500 leading-tight">15+ yrs trained multi-brand precision specialists.</p>
             </div>
           </div>
 
           {/* 4. Live Service Updates */}
-          <div className="p-3 bg-white rounded-2xl border border-slate-200 flex flex-col justify-between shadow-sm hover:border-emerald-300 transition space-y-2">
-            <div className="flex items-start justify-between">
-              <AnimatedLiveUpdatesLogo />
-              <span className="text-[8px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">Real-Time</span>
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group hover:border-emerald-400 transition-all duration-300">
+            <div className="relative h-24 sm:h-28 w-full overflow-hidden">
+              <img
+                src="/images/gallery-engine-build.jpg"
+                alt="Live Service Updates"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+              <span className="absolute top-1.5 right-1.5 text-[8px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-1.5 py-0.5 rounded shadow">
+                Real-Time
+              </span>
+              <div className="absolute bottom-1.5 left-1.5 flex items-center space-x-1">
+                <div className="w-5 h-5 rounded-md bg-slate-900/80 backdrop-blur-sm border border-white/20 flex items-center justify-center text-emerald-400">
+                  <Video className="w-3 h-3" />
+                </div>
+                <span className="text-[9px] font-bold text-white drop-shadow">Live Cam</span>
+              </div>
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-bold text-slate-900">Live Service Updates</h4>
+            <div className="p-2.5 space-y-0.5">
+              <h4 className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Live Service Updates</h4>
               <p className="text-[10px] text-slate-500 leading-tight">Live WhatsApp inspection video & photo feed.</p>
             </div>
           </div>

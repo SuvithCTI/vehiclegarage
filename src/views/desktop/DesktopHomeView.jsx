@@ -285,107 +285,186 @@ export const DesktopHomeView = () => {
           </p>
         </div>
 
-        {/* 4 Feature Cards with Distinct Real-Time Animated Logos */}
+        {/* 4 Feature Cards with Real Car Photo Header at Top and Smooth Hover Effects */}
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Card 1: Genuine OEM Parts */}
-          <div className="flex flex-col justify-between h-full p-6 bg-white/90 backdrop-blur-md hover:bg-white rounded-2xl border border-slate-200 hover:border-[#E53935] hover:shadow-xl transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <AnimatedOemLogo />
-                <span className="text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full shadow-xs shrink-0">
-                  100% OEM
+          <div className="flex flex-col justify-between h-full bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200 hover:border-[#E53935] hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-1.5 shadow-sm">
+            {/* Real Car Photo at Top */}
+            <div className="relative h-44 w-full overflow-hidden">
+              <img
+                src="/images/gallery-brake-caliper.jpg"
+                alt="Genuine OEM Parts"
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+              
+              {/* Top Badge */}
+              <div className="absolute top-3 right-3">
+                <span className="text-[10px] font-bold text-white bg-red-600/90 backdrop-blur-md border border-red-400/40 px-3 py-1 rounded-full shadow-md">
+                  100% Genuine
                 </span>
               </div>
+
+              {/* Bottom Icon Badge in Photo */}
+              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-amber-400 shadow-md">
+                  <Award className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold text-white tracking-wide drop-shadow-md">OEM Certified</span>
+              </div>
+            </div>
+
+            {/* Card Content */}
+            <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3">
               <div className="space-y-1.5">
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-[#E53935] transition-colors font-['Outfit']">
+                <h4 className="text-lg font-bold text-slate-900 group-hover:text-[#E53935] transition-colors font-['Outfit']">
                   Genuine OEM Parts
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  100% authentic spare parts with sealed manufacturer warranties & barcode security.
+                  100% authentic spare parts with sealed manufacturer warranties, zero counterfeit risk & barcode verification.
                 </p>
               </div>
-            </div>
 
-            <div className="pt-3.5 mt-4 border-t border-slate-200/80 flex items-center space-x-1.5 text-[11px] font-semibold text-slate-700">
-              <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span className="truncate">Bosch, Brembo, NGK, Denso</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
+                <BadgeCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="truncate">Bosch, Brembo, NGK, Denso</span>
+              </div>
             </div>
           </div>
 
-
           {/* Card 2: Free Pick & Drop */}
-          <div className="flex flex-col justify-between h-full p-6 bg-white/90 backdrop-blur-md hover:bg-white rounded-2xl border border-slate-200 hover:border-amber-500 hover:shadow-xl transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <AnimatedGpsLogo />
-                <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full shadow-xs shrink-0">
+          <div className="flex flex-col justify-between h-full bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200 hover:border-amber-500 hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-1.5 shadow-sm">
+            {/* Real Car Photo at Top */}
+            <div className="relative h-44 w-full overflow-hidden">
+              <img
+                src="/images/gallery-supercar-studio.jpg"
+                alt="Free Doorstep Pick & Drop"
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+              
+              {/* Top Badge */}
+              <div className="absolute top-3 right-3">
+                <span className="text-[10px] font-bold text-slate-950 bg-amber-400 backdrop-blur-md border border-amber-300 px-3 py-1 rounded-full shadow-md">
                   GPS Live
                 </span>
               </div>
+
+              {/* Bottom Icon Badge in Photo */}
+              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-amber-400 shadow-md">
+                  <Truck className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold text-white tracking-wide drop-shadow-md">Express Transit</span>
+              </div>
+            </div>
+
+            {/* Card Content */}
+            <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3">
               <div className="space-y-1.5">
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-amber-700 transition-colors font-['Outfit']">
+                <h4 className="text-lg font-bold text-slate-900 group-hover:text-amber-700 transition-colors font-['Outfit']">
                   Free Pick & Drop
                 </h4>
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  Contactless, GPS-tracked vehicle pickup and delivery at your doorstep across Bangalore.
+                  Contactless, GPS-tracked vehicle pickup and delivery at your doorstep across Bangalore with trained drivers.
                 </p>
               </div>
-            </div>
 
-            <div className="pt-3.5 mt-4 border-t border-slate-200/80 flex items-center space-x-1.5 text-[11px] font-semibold text-slate-700">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0"></span>
-              <span className="truncate">15 Km Express Radius Delivery</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
+                <span className="truncate">15 Km Express Radius Delivery</span>
+              </div>
             </div>
           </div>
 
-          {/* Card 3: Hi-Tech Diagnostics */}
-          <div className="flex flex-col justify-between h-full p-6 bg-white/90 backdrop-blur-md hover:bg-white rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-xl transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <AnimatedDiagnosticsLogo />
-                <span className="text-[10px] font-bold text-blue-800 bg-blue-50 border border-blue-200 px-2.5 py-1 rounded-full shadow-xs shrink-0">
-                  OBD-II Scan
+          {/* Card 3: Master Certified Technicians */}
+          <div className="flex flex-col justify-between h-full bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200 hover:border-blue-500 hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-1.5 shadow-sm">
+            {/* Real Car Photo at Top */}
+            <div className="relative h-44 w-full overflow-hidden">
+              <img
+                src="/images/service-car-master.jpg"
+                alt="Master Certified Technicians"
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+              
+              {/* Top Badge */}
+              <div className="absolute top-3 right-3">
+                <span className="text-[10px] font-bold text-white bg-blue-600/90 backdrop-blur-md border border-blue-400/40 px-3 py-1 rounded-full shadow-md">
+                  ASE Certified
                 </span>
               </div>
-              <div className="space-y-1.5">
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-700 transition-colors font-['Outfit']">
-                  Hi-Tech Diagnostics
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Advanced Bosch computerized scanning for all ECU sensor errors & engine tuning.
-                </p>
+
+              {/* Bottom Icon Badge in Photo */}
+              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-cyan-400 shadow-md">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold text-white tracking-wide drop-shadow-md">Master Techs</span>
               </div>
             </div>
 
-            <div className="pt-3.5 mt-4 border-t border-slate-200/80 flex items-center space-x-1.5 text-[11px] font-semibold text-slate-700">
-              <Zap className="w-4 h-4 text-blue-600 shrink-0" />
-              <span className="truncate">50-Sensor Diagnostic Health Report</span>
+            {/* Card Content */}
+            <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3">
+              <div className="space-y-1.5">
+                <h4 className="text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors font-['Outfit']">
+                  Master Certified Technicians
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Factory-trained master mechanics with 15+ years of experience across luxury, Indian & international automotive brands.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
+                <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                <span className="truncate">15+ Yrs Multi-Brand Specialist Care</span>
+              </div>
             </div>
           </div>
 
           {/* Card 4: Live Service Updates */}
-          <div className="flex flex-col justify-between h-full p-6 bg-white/90 backdrop-blur-md hover:bg-white rounded-2xl border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 group">
-            <div>
-              <div className="flex items-center justify-between gap-2 mb-4">
-                <AnimatedLiveUpdatesLogo />
-                <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full shadow-xs shrink-0">
+          <div className="flex flex-col justify-between h-full bg-white/95 backdrop-blur-md rounded-3xl border border-slate-200 hover:border-emerald-500 hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-1.5 shadow-sm">
+            {/* Real Car Photo at Top */}
+            <div className="relative h-44 w-full overflow-hidden">
+              <img
+                src="/images/gallery-engine-build.jpg"
+                alt="Live Service Updates"
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+              
+              {/* Top Badge */}
+              <div className="absolute top-3 right-3">
+                <span className="text-[10px] font-bold text-white bg-emerald-600/90 backdrop-blur-md border border-emerald-400/40 px-3 py-1 rounded-full shadow-md">
                   Real-Time
                 </span>
               </div>
-              <div className="space-y-1.5">
-                <h4 className="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition-colors font-['Outfit']">
-                  Live Service Updates
-                </h4>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Real-time WhatsApp video and photo status of every part inspected & replaced.
-                </p>
+
+              {/* Bottom Icon Badge in Photo */}
+              <div className="absolute bottom-3 left-3 flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-xl bg-slate-900/80 backdrop-blur-md border border-white/20 flex items-center justify-center text-emerald-400 shadow-md">
+                  <Radio className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold text-white tracking-wide drop-shadow-md">WhatsApp Live</span>
               </div>
             </div>
 
-            <div className="pt-3.5 mt-4 border-t border-slate-200/80 flex items-center space-x-1.5 text-[11px] font-semibold text-slate-700">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
-              <span className="truncate">100% Inspection Transparency</span>
+            {/* Card Content */}
+            <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 space-y-3">
+              <div className="space-y-1.5">
+                <h4 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors font-['Outfit']">
+                  Live Service Updates
+                </h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Real-time WhatsApp video and photo status of every part inspected & replaced before any invoice is created.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                <span className="truncate">100% Inspection Transparency</span>
+              </div>
             </div>
           </div>
 

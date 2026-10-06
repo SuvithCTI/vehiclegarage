@@ -267,8 +267,6 @@ export const GarageProvider = ({ children }) => {
       setActiveView(targetView);
     } else if (cleanUser.role === 'admin') {
       setActiveView('admin');
-    } else if (activeView === 'home' || !['services', 'about', 'gallery', 'contact'].includes(activeView)) {
-      setActiveView('my-bookings');
     }
   };
 
@@ -481,12 +479,21 @@ export const GarageProvider = ({ children }) => {
   };
 
   const initiateBooking = (service = null, vehicleType = 'car') => {
-    setSelectedServiceForBooking(service);
-    if (vehicleType) {
-      setServiceFilter(vehicleType);
+    const rawPhone = garageInfo?.whatsapp?.replace(/[^0-9]/g, '') || '919876543210';
+    let text = `Hi ApexAuto! 🚗🏍️\n\nI would like to book a service appointment for my vehicle.\n\nPlease share the available workshop time slots!`;
+
+    if (service) {
+      const serviceName = typeof service === 'string' ? service : service.name;
+      const priceText = service.price ? `\n• Price: ₹${service.price.toLocaleString()}` : '';
+      const durationText = service.duration ? `\n• Duration: ${service.duration}` : '';
+      const vType = service.vehicleType ? service.vehicleType.toUpperCase() : (vehicleType ? vehicleType.toUpperCase() : 'CAR/BIKE');
+      text = `Hi ApexAuto! 🚗🏍️\n\nI would like to book an appointment for:\n• Service: *${serviceName}* (${vType})${priceText}${durationText}\n\nPlease confirm the earliest available slot!`;
+    } else if (vehicleType && vehicleType !== 'car') {
+      text = `Hi ApexAuto! 🚗🏍️\n\nI would like to book an appointment for my *${vehicleType.toUpperCase()}*.\n\nPlease share the available time slots!`;
     }
-    setActiveView('booking');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const url = `https://wa.me/${rawPhone}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
   };
 
   return (

@@ -7,129 +7,142 @@ import {
   Radio, 
   ShieldCheck,
   Zap,
-  Activity
+  Activity,
+  CheckCircle2,
+  MapPin,
+  Camera
 } from 'lucide-react';
 
 /**
- * 1. Animated OEM Certification Logo
- * Features: Outer rotating precision calibration ring, shimmering metallic gradient,
- * central floating award emblem, and glowing orbiting sparkle.
+ * 1. Real Image OEM Certification Logo
+ * Features: Real genuine Brembo/OEM brake assembly photo, crimson glass gradient overlay,
+ * floating gold award emblem, and live guarantee sparkle.
  */
 export const AnimatedOemLogo = () => {
   return (
-    <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center shadow-md shadow-red-500/25 overflow-hidden group-hover:scale-105 transition-transform">
-      {/* Light shimmer sweep reflection */}
-      <div className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer-sweep pointer-events-none"></div>
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shadow-red-500/20 border-2 border-red-500/40 group-hover:scale-105 group-hover:border-red-500 transition-all duration-300 shrink-0">
+      {/* Real Photographic Image Background */}
+      <img
+        src="/images/gallery-brake-caliper.jpg"
+        alt="Genuine OEM Spare Parts"
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+      />
+      {/* Red Tint & Glass Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-red-950/90 via-red-900/50 to-red-600/30 backdrop-blur-[0.5px]"></div>
 
-      {/* Rotating precision calibration ring */}
-      <svg className="absolute inset-0 w-full h-full animate-spin-slow text-white/30" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 3" />
-      </svg>
+      {/* Floating Center Icon Badge */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="w-8 h-8 rounded-xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-md">
+          <Award className="w-4 h-4 text-amber-300 animate-float" />
+        </div>
+      </div>
 
-      {/* Center Icon */}
-      <Award className="w-6 h-6 text-white animate-float relative z-10" />
-
-      {/* Orbiting Sparkle Star */}
-      <Sparkles className="w-3.5 h-3.5 text-amber-300 absolute top-2 right-2 animate-spin z-20" />
+      {/* Live Sparkle Accent */}
+      <span className="absolute top-1.5 right-1.5 flex h-3 w-3 z-20">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border border-white"></span>
+      </span>
     </div>
   );
 };
 
 /**
- * 2. Animated GPS Doorstep Pickup & Delivery Logo
- * Features: Concentric sonar radar rings, rotating 360° radar sweep beam,
- * and floating delivery truck with active live ping.
+ * 2. Real Image GPS Doorstep Pickup & Delivery Logo
+ * Features: Real automotive workshop studio vehicle pickup photo, amber glass overlay,
+ * floating transport truck icon, and pulsing GPS beacon.
  */
 export const AnimatedGpsLogo = () => {
   return (
-    <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shadow-md shadow-amber-500/25 overflow-hidden group-hover:scale-105 transition-transform">
-      
-      {/* Concentric Radar Grid Rings */}
-      <svg className="absolute inset-0 w-full h-full text-white/20" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="1" />
-        <circle cx="30" cy="30" r="16" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-        <circle cx="30" cy="30" r="8" fill="none" stroke="currentColor" strokeWidth="1" />
-      </svg>
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shadow-amber-500/20 border-2 border-amber-500/40 group-hover:scale-105 group-hover:border-amber-500 transition-all duration-300 shrink-0">
+      {/* Real Photographic Image Background */}
+      <img
+        src="/images/gallery-supercar-studio.jpg"
+        alt="Doorstep Pick and Drop"
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+      />
+      {/* Amber Tint & Glass Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-amber-950/90 via-amber-900/50 to-orange-600/30 backdrop-blur-[0.5px]"></div>
 
-      {/* Rotating Radar Scanner Beam */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-12 h-12 rounded-full animate-radar-sweep overflow-hidden">
-          <div className="w-1/2 h-1/2 bg-gradient-to-br from-white/40 via-white/10 to-transparent origin-bottom-right transform rotate-45"></div>
+      {/* Floating Center Icon Badge */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="w-8 h-8 rounded-xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-md">
+          <Truck className="w-4 h-4 text-amber-300 animate-float" />
         </div>
       </div>
 
-      {/* Center Vehicle Icon */}
-      <Truck className="w-6 h-6 text-white animate-float relative z-10" />
-
-      {/* Live GPS Ping Wave Dot */}
-      <span className="absolute top-2 right-2 flex h-3 w-3 z-20">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-200"></span>
+      {/* Live GPS Ping Wave */}
+      <span className="absolute top-1.5 right-1.5 flex h-3 w-3 z-20">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-400 border border-white"></span>
       </span>
     </div>
   );
 };
 
 /**
- * 3. Animated Hi-Tech Diagnostics Logo
- * Features: Computerized microchip with vertical sweeping laser scanner line,
- * gold micro-connector pins, and active telemetry pulse.
+ * 3. Real Image Hi-Tech Diagnostics Logo
+ * Features: Real computerized laser wheel alignment & diagnostic scanner photo,
+ * cyan/blue laser overlay, and active microprocessor telemetry.
  */
 export const AnimatedDiagnosticsLogo = () => {
   return (
-    <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center shadow-md shadow-blue-500/25 overflow-hidden group-hover:scale-105 transition-transform">
-      
-      {/* Vertical Diagnostic Laser Scanner Line */}
-      <div className="absolute inset-x-0 animate-laser-scan bg-gradient-to-r from-transparent via-cyan-300 to-transparent shadow-[0_0_8px_rgba(6,182,212,0.9)] z-20 pointer-events-none"></div>
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shadow-blue-500/20 border-2 border-blue-500/40 group-hover:scale-105 group-hover:border-blue-500 transition-all duration-300 shrink-0">
+      {/* Real Photographic Image Background */}
+      <img
+        src="/images/gallery-wheel-align.jpg"
+        alt="Computerized Bosch Diagnostics"
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+      />
+      {/* Blue/Cyan Tint & Glass Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-indigo-900/50 to-cyan-600/30 backdrop-blur-[0.5px]"></div>
 
-      {/* Circuit Micro-Pins Top & Bottom */}
-      <div className="absolute inset-1 border border-white/20 rounded-xl pointer-events-none">
-        <div className="absolute -top-1 left-2 right-2 flex justify-around">
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
-        </div>
-        <div className="absolute -bottom-1 left-2 right-2 flex justify-around">
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
-          <span className="w-1 h-1 bg-cyan-300 rounded-full"></span>
+      {/* Sweeping Laser Scan Line */}
+      <div className="absolute inset-x-0 animate-laser-scan bg-gradient-to-r from-transparent via-cyan-300 to-transparent shadow-[0_0_8px_rgba(6,182,212,0.9)] z-10 pointer-events-none"></div>
+
+      {/* Floating Center Icon Badge */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="w-8 h-8 rounded-xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-md">
+          <Cpu className="w-4 h-4 text-cyan-300 animate-pulse" />
         </div>
       </div>
 
-      {/* Center Microprocessor Core */}
-      <Cpu className="w-6 h-6 text-white animate-pulse relative z-10" />
-
       {/* Live OBD-II Signal Dot */}
-      <span className="absolute top-2 right-2 flex h-3 w-3 z-20">
+      <span className="absolute top-1.5 right-1.5 flex h-3 w-3 z-20">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-300 opacity-75"></span>
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 border border-white"></span>
       </span>
     </div>
   );
 };
 
 /**
- * 4. Animated Live Service Updates Logo
- * Features: Radiating broadcast radio transmission arcs, pulsing live signal beacon,
- * and dynamic communication icon.
+ * 4. Real Image Live Service Updates Logo
+ * Features: Real master engine rebuild & live inspection photo,
+ * emerald broadcast overlay, and live photo/video feed beacon.
  */
 export const AnimatedLiveUpdatesLogo = () => {
   return (
-    <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-md shadow-emerald-500/25 overflow-hidden group-hover:scale-105 transition-transform">
-      
-      {/* Radiating Broadcast Wave Rings */}
-      <svg className="absolute inset-0 w-full h-full text-white/25" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="animate-spin-slow" />
-        <circle cx="30" cy="30" r="16" fill="none" stroke="currentColor" strokeWidth="1" />
-      </svg>
+    <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-lg shadow-emerald-500/20 border-2 border-emerald-500/40 group-hover:scale-105 group-hover:border-emerald-500 transition-all duration-300 shrink-0">
+      {/* Real Photographic Image Background */}
+      <img
+        src="/images/gallery-engine-build.jpg"
+        alt="Live WhatsApp Inspection Updates"
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+      />
+      {/* Emerald Tint & Glass Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-teal-900/50 to-emerald-600/30 backdrop-blur-[0.5px]"></div>
 
-      {/* Center Radio Wave Broadcast Icon */}
-      <Radio className="w-6 h-6 text-white animate-pulse relative z-10" />
+      {/* Floating Center Icon Badge */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="w-8 h-8 rounded-xl bg-black/40 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-md">
+          <Camera className="w-4 h-4 text-emerald-300 animate-pulse" />
+        </div>
+      </div>
 
       {/* Live Recording Beacon */}
-      <span className="absolute top-2 right-2 flex h-3 w-3 z-20">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80"></span>
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-200"></span>
+      <span className="absolute top-1.5 right-1.5 flex h-3 w-3 z-20">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border border-white"></span>
       </span>
     </div>
   );
